@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "storage": {
+      "customerdetail": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    },
+    "function": {
+      "chokeHealthcheck": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

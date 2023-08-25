@@ -1,0 +1,10 @@
+{
+  "resourceName": "customerdetail",
+  "tableName": "healthcheck",
+  "partitionKey": {
+    "fieldName": "id",
+    "fieldType": "number"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

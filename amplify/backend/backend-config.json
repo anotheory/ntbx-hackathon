@@ -1,0 +1,125 @@
+{
+  "api": {
+    "healthcheck": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "chokeHealthcheck"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
+    "healthcheckExpress": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "chokeExpressHealthcheck"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "function": {
+    "chokeExpressHealthcheck": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "customerdetail"
+        },
+        {
+          "attributes": [
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "chokeHealthcheck"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "chokeHealthcheck": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributeEnvMap": {
+            "Arn": "TABLE_ARN",
+            "Name": "TABLE_NAME"
+          },
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "storage",
+          "resourceName": "customerdetail"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "customerdetail"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_chokeExpressHealthcheck_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "chokeExpressHealthcheck"
+        }
+      ]
+    },
+    "AMPLIFY_function_chokeExpressHealthcheck_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "chokeExpressHealthcheck"
+        }
+      ]
+    },
+    "AMPLIFY_function_chokeHealthcheck_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "chokeHealthcheck"
+        }
+      ]
+    },
+    "AMPLIFY_function_chokeHealthcheck_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "chokeHealthcheck"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "customerdetail": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    }
+  }
+}
